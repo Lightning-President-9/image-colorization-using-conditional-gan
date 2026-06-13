@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Image Colorization
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- ============================================= -->
+    <!-- LEFT PANEL -->
+    <!-- ============================================= -->
+
+    <div class="card upload-card">
+
+        <div class="card-header">
+            <h2>Image Upload</h2>
+            <p>Upload an image and generate a colorized version using your trained TensorFlow model.</p>
+        </div>
+
+        <form id="uploadForm">
+
+            <!-- Drag Drop Area -->
+            <div id="dropZone" class="drop-zone">
+
+                <input type="file"
+                       id="imageInput"
+                       name="image"
+                       accept=".jpg,.jpeg,.png"
+                       hidden>
+
+                <div class="drop-zone-content">
+
+                    <div class="upload-icon">
+                        📁
+                    </div>
+
+                    <h3>Drag & Drop Image</h3>
+
+                    <p>or click to browse</p>
+
+                </div>
+
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-wrapper">
+
+                <img id="previewImage"
+                     class="preview-image hidden"
+                     alt="Preview">
+
+            </div>
+
+            <!-- Model Type -->
+            <div class="form-group">
+
+                <label>
+                    Model Type
+                </label>
+
+                <select id="modelType"
+                        name="model_type">
+
+                    <option value="general">
+                        General Models
+                    </option>
+
+                    <option value="category">
+                        Category Models
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- General Models -->
+            <div class="form-group"
+                 id="generalContainer">
+
+                <label>
+                    General Model
+                </label>
+
+                <select id="generalModel"
+                        name="general_model">
+
+                    {% for model in general_models %}
+
+                    <option value="{{ model }}">
+                        {{ model }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- Category Models -->
+            <div class="form-group hidden"
+                 id="categoryContainer">
+
+                <label>
+                    Category Model
+                </label>
+
+                <select id="categoryModel"
+                        name="category_model">
+
+                    {% for model in category_models %}
+
+                    <option value="{{ model }}">
+                        {{ model }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- Loss -->
+            <div class="form-group">
+
+                <label>
+                    Loss Function
+                </label>
+
+                <select id="lossVersion"
+                        name="loss_version">
+
+                    <option value="v1">
+                        Generator Loss V1 (BCE)
+                    </option>
+
+                    <option value="v2">
+                        Generator Loss V2 (MSE)
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit"
+                    class="generate-btn">
+
+                Generate Colorized Image
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- RIGHT PANEL -->
+    <!-- ============================================= -->
+
+    <div class="card result-card">
+
+        <div class="card-header">
+
+            <h2>
+                Generated Results
+            </h2>
+
+            <p>
+                View original, grayscale and colorized images.
+            </p>
+
+        </div>
+
+        <!-- Info Card -->
+        <div id="infoCard"
+             class="info-card hidden">
+
+            <div class="info-item">
+
+                <span>Model</span>
+
+                <strong id="infoModel">
+                    -
+                </strong>
+
+            </div>
+
+            <div class="info-item">
+
+                <span>Loss</span>
+
+                <strong id="infoLoss">
+                    -
+                </strong>
+
+            </div>
+
+            <div class="info-item">
+
+                <span>Inference Time</span>
+
+                <strong id="infoTime">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+        <!-- Results Grid -->
+
+        <div id="resultSection"
+             class="result-section hidden">
+
+            <div class="result-grid">
+
+                <div class="image-card">
+
+                    <h4>
+                        Original
+                    </h4>
+
+                    <img id="originalImg"
+                         alt="Original">
+
+                </div>
+
+                <div class="image-card">
+
+                    <h4>
+                        Grayscale
+                    </h4>
+
+                    <img id="grayscaleImg"
+                         alt="Grayscale">
+
+                </div>
+
+                <div class="image-card">
+
+                    <h4>
+                        Colorized
+                    </h4>
+
+                    <img id="generatedImg"
+                         alt="Generated">
+
+                </div>
+
+            </div>
+
+            <!-- Comparison -->
+
+            <div class="comparison-container">
+
+                <h3>
+                    Side-by-Side Comparison
+                </h3>
+
+                <img id="comparisonImg"
+                     class="comparison-image"
+                     alt="Comparison">
+
+            </div>
+
+            <!-- Download Buttons -->
+
+            <div class="download-actions">
+
+                <a id="downloadOriginal"
+                   class="download-btn"
+                   download>
+
+                    Download Original
+
+                </a>
+
+                <a id="downloadGenerated"
+                   class="download-btn"
+                   download>
+
+                    Download Colorized
+
+                </a>
+
+                <a id="downloadComparison"
+                   class="download-btn"
+                   download>
+
+                    Download Comparison
+
+                </a>
+
+                <button id="downloadZip"
+                        class="download-btn zip-btn">
+
+                    Download ZIP
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Placeholder -->
+
+        <div id="emptyState"
+             class="empty-state">
+
+            <div class="empty-icon">
+                🎨
+            </div>
+
+            <h3>
+                No Result Generated
+            </h3>
+
+            <p>
+                Upload an image and select a model to begin colorization.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

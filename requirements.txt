@@ -1,0 +1,8 @@
+numpy==1.26.4
+tensorflow==2.21.0
+keras==3.14.1
+matplotlib==3.11.0
+opencv-python==4.13.0
+redis
+gunicorn
+Flask

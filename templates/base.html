@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        AI Image Colorization
+        {% endblock %}
+    </title>
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <!-- Background Decoration -->
+    <div class="bg-gradient"></div>
+
+    <div class="app-wrapper">
+
+        <!-- ===================================================== -->
+        <!-- NAVBAR -->
+        <!-- ===================================================== -->
+
+        <nav class="navbar">
+
+            <div class="navbar-left">
+
+                <div class="logo-circle">
+                    🎨
+                </div>
+
+                <div>
+                    <h1 class="app-title">
+                        AI Image Colorization
+                    </h1>
+
+                    <p class="app-subtitle">
+                        TensorFlow Generator Inference Dashboard
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="navbar-right">
+
+                <button id="themeToggle"
+                        class="theme-btn">
+
+                    🌙
+
+                </button>
+
+            </div>
+
+        </nav>
+
+        <!-- ===================================================== -->
+        <!-- PAGE CONTENT -->
+        <!-- ===================================================== -->
+
+        <main class="main-content">
+
+            {% block content %}
+            {% endblock %}
+
+        </main>
+
+        <!-- ===================================================== -->
+        <!-- FOOTER -->
+        <!-- ===================================================== -->
+
+        <footer class="footer">
+
+            <div class="footer-content">
+
+                <p>
+                    <a href="https://github.com/Lightning-President-9/image-colorization-using-conditional-gan" target="_blank">
+                        AI Image Colorization System (GitHub Repository)
+                    </a>
+                </p>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- LOADING OVERLAY -->
+    <!-- ===================================================== -->
+
+    <div id="loadingOverlay"
+         class="loading-overlay hidden">
+
+        <div class="loader-card">
+
+            <div class="spinner"></div>
+
+            <h3>
+                Generating Colorized Image
+            </h3>
+
+            <p id="loadingText">
+                Initializing...
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- TOAST -->
+    <!-- ===================================================== -->
+
+    <div id="toast"
+         class="toast hidden">
+
+        <span id="toastMessage">
+            Success
+        </span>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- JS -->
+    <!-- ===================================================== -->
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    {% block extra_js %}
+    {% endblock %}
+
+</body>
+
+</html>
