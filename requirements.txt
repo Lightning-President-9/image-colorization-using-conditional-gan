@@ -6,3 +6,4 @@ opencv-python
 redis
 gunicorn
 Flask
+python-dotenv
