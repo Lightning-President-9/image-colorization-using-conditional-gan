@@ -7,3 +7,4 @@ redis
 gunicorn
 Flask
 python-dotenv
+Flask-Limiter

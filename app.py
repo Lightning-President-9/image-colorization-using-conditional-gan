@@ -215,7 +215,7 @@ def home():
     )
 
 @app.route("/generate", methods=["POST"])
-@limiter.limit("10/hour")
+@limiter.limit("10/minute")
 def generate():
 
     try:
