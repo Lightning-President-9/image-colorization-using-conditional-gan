@@ -462,13 +462,5 @@ def download_zip():
             "error": str(e)
         }), 500
 
-@app.route("/service-status", methods=["GET"])
-def status():
-    return jsonify({
-        "status": "ok",
-        "service": "Image Colorization using Conditional GAN Service API"
-    })
-
-
 if __name__ == "__main__":
     app.run()
